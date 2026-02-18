@@ -1,4 +1,4 @@
-₹import { verifyToken } from "@/lib/auth";
+import { verifyToken } from "@/lib/auth";
 import dbConnect from "@/lib/db";
 import Bid from "@/models/Bid";
 import Game from "@/models/Game";
