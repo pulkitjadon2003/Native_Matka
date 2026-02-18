@@ -1,0 +1,3 @@
+module.exports=[65627,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(14253);a.n(d("[project]/Desktop/Matka/Native Matka/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},55166,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(14253);a.n(d("[project]/Desktop/Matka/Native Matka/node_modules/next/dist/client/components/builtin/global-error.js"))},33074,a=>{"use strict";a.i(65627);var b=a.i(55166);a.n(b)}];
+
+//# sourceMappingURL=9a01e_next_dist_client_components_builtin_global-error_3fe357f2.js.map

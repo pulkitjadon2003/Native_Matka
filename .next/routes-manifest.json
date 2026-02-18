@@ -1,1 +1,284 @@
-{"version":3,"pages404":true,"caseSensitive":false,"basePath":"","redirects":[{"source":"/:path+/","destination":"/:path+","internal":true,"statusCode":308,"regex":"^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"}],"headers":[{"source":"/api/:path*","headers":[{"key":"Access-Control-Allow-Credentials","value":"true"},{"key":"Access-Control-Allow-Origin","value":"*"},{"key":"Access-Control-Allow-Methods","value":"GET,DELETE,PATCH,POST,PUT"},{"key":"Access-Control-Allow-Headers","value":"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"}],"regex":"^/api(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"}],"dynamicRoutes":[{"page":"/api/markets/[id]","regex":"^/api/markets/([^/]+?)(?:/)?$","routeKeys":{"nxtPid":"nxtPid"},"namedRegex":"^/api/markets/(?<nxtPid>[^/]+?)(?:/)?$"},{"page":"/api/users/[id]","regex":"^/api/users/([^/]+?)(?:/)?$","routeKeys":{"nxtPid":"nxtPid"},"namedRegex":"^/api/users/(?<nxtPid>[^/]+?)(?:/)?$"},{"page":"/api/users/[id]/wallet","regex":"^/api/users/([^/]+?)/wallet(?:/)?$","routeKeys":{"nxtPid":"nxtPid"},"namedRegex":"^/api/users/(?<nxtPid>[^/]+?)/wallet(?:/)?$"}],"staticRoutes":[{"page":"/","regex":"^/(?:/)?$","routeKeys":{},"namedRegex":"^/(?:/)?$"},{"page":"/_not-found","regex":"^/_not\\-found(?:/)?$","routeKeys":{},"namedRegex":"^/_not\\-found(?:/)?$"},{"page":"/login","regex":"^/login(?:/)?$","routeKeys":{},"namedRegex":"^/login(?:/)?$"},{"page":"/markets","regex":"^/markets(?:/)?$","routeKeys":{},"namedRegex":"^/markets(?:/)?$"},{"page":"/reports","regex":"^/reports(?:/)?$","routeKeys":{},"namedRegex":"^/reports(?:/)?$"},{"page":"/settings/app","regex":"^/settings/app(?:/)?$","routeKeys":{},"namedRegex":"^/settings/app(?:/)?$"},{"page":"/settings/branding","regex":"^/settings/branding(?:/)?$","routeKeys":{},"namedRegex":"^/settings/branding(?:/)?$"},{"page":"/settings/payment","regex":"^/settings/payment(?:/)?$","routeKeys":{},"namedRegex":"^/settings/payment(?:/)?$"},{"page":"/settings/rates","regex":"^/settings/rates(?:/)?$","routeKeys":{},"namedRegex":"^/settings/rates(?:/)?$"},{"page":"/users","regex":"^/users(?:/)?$","routeKeys":{},"namedRegex":"^/users(?:/)?$"}],"dataRoutes":[],"rsc":{"header":"RSC","varyHeader":"RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch","prefetchHeader":"Next-Router-Prefetch","didPostponeHeader":"x-nextjs-postponed","contentTypeHeader":"text/x-component","suffix":".rsc","prefetchSuffix":".prefetch.rsc"},"rewrites":[]}
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,DELETE,PATCH,POST,PUT"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+        }
+      ],
+      "regex": "^/api(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?(?:/)?$"
+    }
+  ],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/api/markets/[id]",
+      "regex": "^/api/markets/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/markets/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/users/[id]",
+      "regex": "^/api/users/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/users/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/users/[id]/wallet",
+      "regex": "^/api/users/([^/]+?)/wallet(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/users/(?<nxtPid>[^/]+?)/wallet(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/api/admin/stats",
+      "regex": "^/api/admin/stats(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/stats(?:/)?$"
+    },
+    {
+      "page": "/api/auth/login",
+      "regex": "^/api/auth/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/login(?:/)?$"
+    },
+    {
+      "page": "/api/auth/me",
+      "regex": "^/api/auth/me(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/me(?:/)?$"
+    },
+    {
+      "page": "/api/auth/register",
+      "regex": "^/api/auth/register(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/register(?:/)?$"
+    },
+    {
+      "page": "/api/auth/signup",
+      "regex": "^/api/auth/signup(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/signup(?:/)?$"
+    },
+    {
+      "page": "/api/bids",
+      "regex": "^/api/bids(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/bids(?:/)?$"
+    },
+    {
+      "page": "/api/bids/history",
+      "regex": "^/api/bids/history(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/bids/history(?:/)?$"
+    },
+    {
+      "page": "/api/bids/place",
+      "regex": "^/api/bids/place(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/bids/place(?:/)?$"
+    },
+    {
+      "page": "/api/games",
+      "regex": "^/api/games(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/games(?:/)?$"
+    },
+    {
+      "page": "/api/games/bet",
+      "regex": "^/api/games/bet(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/games/bet(?:/)?$"
+    },
+    {
+      "page": "/api/games/rates",
+      "regex": "^/api/games/rates(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/games/rates(?:/)?$"
+    },
+    {
+      "page": "/api/markets",
+      "regex": "^/api/markets(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/markets(?:/)?$"
+    },
+    {
+      "page": "/api/results/declare",
+      "regex": "^/api/results/declare(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/results/declare(?:/)?$"
+    },
+    {
+      "page": "/api/settings",
+      "regex": "^/api/settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/settings(?:/)?$"
+    },
+    {
+      "page": "/api/setup/admin",
+      "regex": "^/api/setup/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/setup/admin(?:/)?$"
+    },
+    {
+      "page": "/api/user/profile",
+      "regex": "^/api/user/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/user/profile(?:/)?$"
+    },
+    {
+      "page": "/api/users",
+      "regex": "^/api/users(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/users(?:/)?$"
+    },
+    {
+      "page": "/api/wallet",
+      "regex": "^/api/wallet(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/wallet(?:/)?$"
+    },
+    {
+      "page": "/api/wallet/add-fund",
+      "regex": "^/api/wallet/add\\-fund(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/wallet/add\\-fund(?:/)?$"
+    },
+    {
+      "page": "/api/wallet/history",
+      "regex": "^/api/wallet/history(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/wallet/history(?:/)?$"
+    },
+    {
+      "page": "/api/wallet/withdraw",
+      "regex": "^/api/wallet/withdraw(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/wallet/withdraw(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
+      "page": "/markets",
+      "regex": "^/markets(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/markets(?:/)?$"
+    },
+    {
+      "page": "/reports",
+      "regex": "^/reports(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/reports(?:/)?$"
+    },
+    {
+      "page": "/settings/app",
+      "regex": "^/settings/app(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/app(?:/)?$"
+    },
+    {
+      "page": "/settings/branding",
+      "regex": "^/settings/branding(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/branding(?:/)?$"
+    },
+    {
+      "page": "/settings/payment",
+      "regex": "^/settings/payment(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/payment(?:/)?$"
+    },
+    {
+      "page": "/settings/rates",
+      "regex": "^/settings/rates(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/settings/rates(?:/)?$"
+    },
+    {
+      "page": "/users",
+      "regex": "^/users(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/users(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
