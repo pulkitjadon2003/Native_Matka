@@ -1,0 +1,13 @@
+{
+  "/api/wallet/route": "app/api/wallet/route.js",
+  "/api/wallet/history/route": "app/api/wallet/history/route.js",
+  "/api/users/route": "app/api/users/route.js",
+  "/api/markets/route": "app/api/markets/route.js",
+  "/settings/rates/page": "app/settings/rates/page.js",
+  "/markets/page": "app/markets/page.js",
+  "/settings/payment/page": "app/settings/payment/page.js",
+  "/reports/page": "app/reports/page.js",
+  "/settings/app/page": "app/settings/app/page.js",
+  "/settings/branding/page": "app/settings/branding/page.js",
+  "/users/page": "app/users/page.js"
+}
