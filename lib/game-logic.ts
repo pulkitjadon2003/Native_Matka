@@ -3,6 +3,7 @@ import Bid from "@/models/Bid";
 import AppSetting from "@/models/AppSetting";
 import Transaction from "@/models/Transaction";
 import User from "@/models/User";
+import GameResult from "@/models/GameResult";
 
 /**
  * Calculates and processes valid bids for a specific game result.
@@ -15,6 +16,28 @@ export async function processGameResult(gameId: string, result: any, session: 'o
     try {
         await dbConnect();
 
+        // 0. Update GameResult History for Charts
+        const today = new Date().toISOString().split('T')[0];
+        let gameResult = await GameResult.findOne({ game_id: gameId, date: today });
+        if (!gameResult) {
+            gameResult = new GameResult({
+                game_id: gameId,
+                date: today,
+                open_panna: '***',
+                open_digit: '*',
+                close_panna: '***',
+                close_digit: '*'
+            });
+        }
+
+        // Apply whatever was passed in the result payload
+        if (result.open_panna && result.open_panna !== '***') gameResult.open_panna = result.open_panna;
+        if (result.open_digit && result.open_digit !== '*') gameResult.open_digit = result.open_digit;
+        if (result.close_panna && result.close_panna !== '***') gameResult.close_panna = result.close_panna;
+        if (result.close_digit && result.close_digit !== '*') gameResult.close_digit = result.close_digit;
+
+        await gameResult.save();
+
         // 1. Fetch Rates
         const settings = await AppSetting.findOne({});
         const rates = settings?.game_rates || [];
@@ -26,12 +49,13 @@ export async function processGameResult(gameId: string, result: any, session: 'o
             return parseFloat(rateObj.rate.split(':')[1]);
         };
 
-        // 2. Fetch Pending Bids for this Game & Session
-        // We only process 'pending' bids.
+        // 2. Fetch Pending Bids for this Game & Session (TODAY ONLY)
+        // We only process 'pending' bids placed today.
         const bids = await Bid.find({
             game_id: gameId,
             status: 'pending',
-            session: session // Only process bids for the declared session (or relevant ones)
+            session: session, // Only process bids for the declared session (or relevant ones)
+            date: today // Only consider bids placed today
         });
 
         console.log(`Processing ${bids.length} bids for game ${gameId} session ${session}`);

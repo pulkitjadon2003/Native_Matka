@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface ITransaction extends Document {
     user_id: mongoose.Types.ObjectId;
@@ -9,6 +9,7 @@ export interface ITransaction extends Document {
     transaction_id?: string; // External transaction ID (e.g., from UTR)
     admin_note?: string;
     description?: string; // e.g., "Won bid on Main Bazar"
+    receipt_img?: string; // URL to the uploaded screenshot
 }
 
 const TransactionSchema: Schema = new Schema(
@@ -21,6 +22,7 @@ const TransactionSchema: Schema = new Schema(
         transaction_id: { type: String },
         admin_note: { type: String },
         description: { type: String },
+        receipt_img: { type: String },
     },
     { timestamps: true }
 );

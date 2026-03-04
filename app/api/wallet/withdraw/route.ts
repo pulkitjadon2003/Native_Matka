@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         }
         const token = authHeader.split(' ')[1];
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as any;
-        const userId = decoded.userId;
+        const userId = decoded.id || decoded.userId;
 
         const { amount, payment_method } = await req.json();
 

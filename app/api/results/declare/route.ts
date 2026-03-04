@@ -2,6 +2,7 @@ import dbConnect from "@/lib/db";
 import AppSetting from "@/models/AppSetting";
 import Bid from "@/models/Bid";
 import Game from "@/models/Game";
+import GameResult from "@/models/GameResult";
 import Transaction from "@/models/Transaction";
 import User from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
         const game = await Game.findById(game_id);
         if (!game) return NextResponse.json({ success: false, message: "Game not found" }, { status: 404 });
 
-        // 3. Update Game Result
+        // 3. Update Game Result & GameResult History
         if (session === 'open') {
             game.result.open_panna = panna;
             game.result.open_digit = digit;
@@ -35,6 +36,29 @@ export async function POST(req: NextRequest) {
             game.result.close_digit = digit;
         }
         await game.save();
+
+        const today = new Date().toISOString().split('T')[0];
+
+        let gameResult = await GameResult.findOne({ game_id, date: today });
+        if (!gameResult) {
+            gameResult = new GameResult({
+                game_id,
+                date: today,
+                open_panna: '***',
+                open_digit: '*',
+                close_panna: '***',
+                close_digit: '*'
+            });
+        }
+
+        if (session === 'open') {
+            gameResult.open_panna = panna;
+            gameResult.open_digit = digit;
+        } else {
+            gameResult.close_panna = panna;
+            gameResult.close_digit = digit;
+        }
+        await gameResult.save();
 
         // 4. Fetch Rates
         const settings = await AppSetting.findOne();

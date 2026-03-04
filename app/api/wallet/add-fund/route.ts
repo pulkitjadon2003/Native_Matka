@@ -1,8 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Transaction from '@/models/Transaction';
-import User from '@/models/User';
 import jwt from 'jsonwebtoken';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
     await dbConnect();
@@ -14,12 +13,12 @@ export async function POST(req: NextRequest) {
         }
         const token = authHeader.split(' ')[1];
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as any;
-        const userId = decoded.userId;
+        const userId = decoded.id || decoded.userId;
 
-        const { amount, payment_method, transaction_id } = await req.json();
+        const { amount, payment_method, transaction_id, receipt_img } = await req.json();
 
-        if (!amount || !payment_method || !transaction_id) {
-            return NextResponse.json({ success: false, msg: 'Missing required fields' }, { status: 400 });
+        if (!amount || !payment_method || !receipt_img) {
+            return NextResponse.json({ success: false, msg: 'Missing required fields (amount, payment_method, receipt_img)' }, { status: 400 });
         }
 
         // Create Transaction Request
@@ -29,13 +28,15 @@ export async function POST(req: NextRequest) {
             type: 'deposit',
             status: 'pending', // Pending admin approval
             payment_method,
-            transaction_id, // UTR number
-            description: 'Fund Request'
+            ...(transaction_id ? { transaction_id } : {}),
+            description: 'Fund Request',
+            receipt_img
         });
 
         return NextResponse.json({ success: true, msg: 'Fund request submitted successfully', transaction });
 
-    } catch (error) {
-        return NextResponse.json({ success: false, msg: 'Internal Server Error' }, { status: 500 });
+    } catch (error: any) {
+        console.error('Add Fund Error:', error);
+        return NextResponse.json({ success: false, msg: error?.message || 'Internal Server Error' }, { status: 500 });
     }
 }

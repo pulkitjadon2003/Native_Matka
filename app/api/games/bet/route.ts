@@ -31,15 +31,35 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ success: false, message: "Insufficient balance" }, { status: 400 });
         }
 
-        // 2. Check Game Status / Time (Basic check)
+        // 2. Check Game Status & Time
         const game = await Game.findById(game_id);
         if (!game) {
             return NextResponse.json({ success: false, message: "Game not found" }, { status: 404 });
         }
 
-        // TODO: Strict time validation logic here based on current time vs game.open_time/close_time
         if (!game.is_active) {
             return NextResponse.json({ success: false, message: "Game is closed or inactive" }, { status: 400 });
+        }
+
+        // Time-based betting restriction
+        const parseTime = (timeStr: string) => {
+            const [time, period] = timeStr.split(' ');
+            let [hours, minutes] = time.split(':').map(Number);
+            if (period === 'PM' && hours !== 12) hours += 12;
+            if (period === 'AM' && hours === 12) hours = 0;
+            return hours * 60 + minutes;
+        };
+
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+        const openTimeVal = parseTime(game.open_time);
+        const closeTimeVal = parseTime(game.close_time);
+
+        if (session === 'open' && currentTime >= openTimeVal) {
+            return NextResponse.json({ success: false, message: `Betting closed for Open session. Market open time was ${game.open_time}` }, { status: 400 });
+        }
+        if (session === 'close' && currentTime >= closeTimeVal) {
+            return NextResponse.json({ success: false, message: `Betting closed for Close session. Market close time was ${game.close_time}` }, { status: 400 });
         }
 
         // 3. Create Bid & Deduct Balance Transaction

@@ -45,6 +45,22 @@
   },
   "dynamicRoutes": [
     {
+      "page": "/api/admin/deposits/[id]",
+      "regex": "^/api/admin/deposits/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/deposits/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/admin/withdrawals/[id]",
+      "regex": "^/api/admin/withdrawals/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/admin/withdrawals/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/api/markets/[id]",
       "regex": "^/api/markets/([^/]+?)(?:/)?$",
       "routeKeys": {
@@ -89,10 +105,34 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/api/admin/bids/status",
+      "regex": "^/api/admin/bids/status(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/bids/status(?:/)?$"
+    },
+    {
+      "page": "/api/admin/deposits",
+      "regex": "^/api/admin/deposits(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/deposits(?:/)?$"
+    },
+    {
+      "page": "/api/admin/markets/preview-winners",
+      "regex": "^/api/admin/markets/preview\\-winners(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/markets/preview\\-winners(?:/)?$"
+    },
+    {
       "page": "/api/admin/stats",
       "regex": "^/api/admin/stats(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/admin/stats(?:/)?$"
+    },
+    {
+      "page": "/api/admin/withdrawals",
+      "regex": "^/api/admin/withdrawals(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/withdrawals(?:/)?$"
     },
     {
       "page": "/api/auth/login",
@@ -149,10 +189,22 @@
       "namedRegex": "^/api/games/bet(?:/)?$"
     },
     {
+      "page": "/api/games/chart",
+      "regex": "^/api/games/chart(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/games/chart(?:/)?$"
+    },
+    {
       "page": "/api/games/rates",
       "regex": "^/api/games/rates(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/games/rates(?:/)?$"
+    },
+    {
+      "page": "/api/games/seed",
+      "regex": "^/api/games/seed(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/games/seed(?:/)?$"
     },
     {
       "page": "/api/markets",
@@ -177,6 +229,12 @@
       "regex": "^/api/setup/admin(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/setup/admin(?:/)?$"
+    },
+    {
+      "page": "/api/upload",
+      "regex": "^/api/upload(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/upload(?:/)?$"
     },
     {
       "page": "/api/user/profile",
@@ -213,6 +271,18 @@
       "regex": "^/api/wallet/withdraw(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/wallet/withdraw(?:/)?$"
+    },
+    {
+      "page": "/bids/status",
+      "regex": "^/bids/status(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/bids/status(?:/)?$"
+    },
+    {
+      "page": "/deposits",
+      "regex": "^/deposits(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/deposits(?:/)?$"
     },
     {
       "page": "/login",
@@ -261,6 +331,12 @@
       "regex": "^/users(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/users(?:/)?$"
+    },
+    {
+      "page": "/withdrawals",
+      "regex": "^/withdrawals(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/withdrawals(?:/)?$"
     }
   ],
   "dataRoutes": [],

@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IAppSetting extends Document {
     min_deposit: number;
@@ -6,6 +6,11 @@ export interface IAppSetting extends Document {
     min_withdraw: number;
     max_withdraw: number;
     app_link?: string;
+    app_name?: string;
+    privacy_policy_url?: string;
+    terms_conditions_url?: string;
+    withdraw_open_time?: string;
+    withdraw_close_time?: string;
     contact_details: {
         whatsapp_no?: string;
         mobile_1?: string;
@@ -20,6 +25,17 @@ export interface IAppSetting extends Document {
         name: string;
         rate: string;
     }[];
+    payment_settings?: {
+        upi_id?: string;
+        upi_number?: string;
+        qr_code?: string;
+        bank_details?: {
+            bank_name?: string;
+            account_number?: string;
+            ifsc_code?: string;
+            account_holder_name?: string;
+        };
+    };
 }
 
 const AppSettingSchema: Schema = new Schema(
@@ -29,6 +45,11 @@ const AppSettingSchema: Schema = new Schema(
         min_withdraw: { type: Number, default: 1000 },
         max_withdraw: { type: Number, default: 50000 },
         app_link: { type: String },
+        app_name: { type: String, default: 'Native Matka' },
+        privacy_policy_url: { type: String },
+        terms_conditions_url: { type: String },
+        withdraw_open_time: { type: String, default: '10:00' },
+        withdraw_close_time: { type: String, default: '18:00' },
         contact_details: {
             whatsapp_no: { type: String },
             mobile_1: { type: String },
@@ -43,6 +64,17 @@ const AppSettingSchema: Schema = new Schema(
             name: { type: String },
             rate: { type: String }
         }],
+        payment_settings: {
+            upi_id: { type: String },
+            upi_number: { type: String },
+            qr_code: { type: String },
+            bank_details: {
+                bank_name: { type: String },
+                account_number: { type: String },
+                ifsc_code: { type: String },
+                account_holder_name: { type: String },
+            }
+        },
     },
     { timestamps: true }
 );

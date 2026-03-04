@@ -85,36 +85,54 @@ export default function GameRatesSettings() {
             <main className="flex-1 flex flex-col h-full overflow-hidden relative">
                 <Header />
 
-                <div className="flex-1 overflow-y-auto p-4 md:p-8 pb-20">
-                    <div className="max-w-4xl mx-auto space-y-6">
-                        <div className="space-y-1">
-                            <h2 className="text-3xl font-bold tracking-tight">Game Rates</h2>
-                            <p className="text-text-secondary">Manage payout rates for different game types.</p>
+                <div className="flex-1 overflow-y-auto p-4 md:p-8 pb-20 scrollbar-hide">
+                    <div className="max-w-5xl mx-auto space-y-8">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 bg-surface-dark p-6 rounded-2xl border border-border-dark shadow-xl relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+                            <div className="space-y-2 z-10">
+                                <h2 className="text-3xl font-black tracking-tight text-white flex items-center gap-3">
+                                    <span className="material-symbols-outlined text-primary text-4xl">percent</span>
+                                    Game Rates Setup
+                                </h2>
+                                <p className="text-sm font-medium text-text-secondary tracking-wide">Manage payout ratios and winning rates for all game types.</p>
+                            </div>
                         </div>
 
-                        <Card className="bg-surface-dark border-border-dark">
-                            <CardHeader>
-                                <CardTitle className="text-white">Payout Rates</CardTitle>
-                                <CardDescription className="text-text-secondary">
-                                    Set the winning ratio for each game type (e.g., 1:10 means 10x payout).
+                        <Card className="bg-surface-dark border-border-dark rounded-2xl shadow-xl overflow-hidden">
+                            <CardHeader className="border-b border-border-dark p-6 md:p-8">
+                                <CardTitle className="text-xl font-black text-white tracking-wide flex items-center gap-3">
+                                    <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                                        <span className="material-symbols-outlined text-primary">price_change</span>
+                                    </div>
+                                    Dividend & Payout Rates
+                                </CardTitle>
+                                <CardDescription className="text-text-secondary font-medium tracking-wide mt-2">
+                                    Set the winning ratio for each game type (e.g., 1:10 means a ₹10 payout for every ₹1 bet).
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="p-6 md:p-8">
                                 {loading ? (
-                                    <div className="text-center py-8 text-text-secondary">Loading rates...</div>
+                                    <div className="flex flex-col items-center justify-center py-16 space-y-4">
+                                        <div className="w-10 h-10 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
+                                        <span className="text-sm font-medium text-text-secondary tracking-widest uppercase">LOADING RATES...</span>
+                                    </div>
                                 ) : (
-                                    <form onSubmit={handleSave} className="space-y-6">
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <form onSubmit={handleSave} className="space-y-8">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                             {rates.map((rate, index) => (
-                                                <div key={rate.type} className="space-y-2">
-                                                    <Label htmlFor={`rate-${index}`} className="text-white">{rate.name}</Label>
-                                                    <div className="relative">
-                                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-sm font-medium">1 :</span>
+                                                <div key={rate.type} className="space-y-3">
+                                                    <Label htmlFor={`rate-${index}`} className="text-text-secondary font-bold uppercase tracking-wider text-xs">
+                                                        {rate.name}
+                                                    </Label>
+                                                    <div className="relative group">
+                                                        <div className="absolute left-0 inset-y-0 w-14 bg-background-dark/80 backdrop-blur-sm border-r border-border-dark flex items-center justify-center rounded-l-xl text-text-secondary font-bold group-focus-within:text-primary transition-colors">
+                                                            1 :
+                                                        </div>
                                                         <Input
                                                             id={`rate-${index}`}
                                                             value={rate.rate.replace('1:', '')}
                                                             onChange={(e) => handleRateChange(index, `1:${e.target.value}`)}
-                                                            className="bg-background-dark border-border-dark text-white pl-8"
+                                                            className="h-12 bg-background-dark border-border-dark focus-visible:ring-primary/50 focus-visible:border-primary rounded-xl text-white pl-[70px] font-bold text-lg"
                                                             placeholder="10"
                                                         />
                                                     </div>
@@ -123,18 +141,24 @@ export default function GameRatesSettings() {
                                         </div>
 
                                         {message && (
-                                            <div className={`p-3 rounded-md text-sm ${message.type === 'success' ? 'bg-success/10 text-success border border-success/20' : 'bg-error/10 text-error border border-error/20'}`}>
+                                            <div className={`p-4 rounded-xl text-sm font-bold flex items-center gap-3 ${message.type === 'success' ? 'bg-success/10 text-success border border-success/20' : 'bg-error/10 text-error border border-error/20'}`}>
+                                                <span className="material-symbols-outlined">{message.type === 'success' ? 'check_circle' : 'error'}</span>
                                                 {message.text}
                                             </div>
                                         )}
 
-                                        <div className="flex justify-end pt-4">
+                                        <div className="flex justify-end pt-6 border-t border-border-dark">
                                             <Button
                                                 type="submit"
-                                                className="bg-primary hover:bg-primary/90 text-black font-bold"
+                                                className="font-bold text-black border-2 border-primary/20 hover:border-primary transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] h-12 px-8 rounded-xl bg-primary min-w-[160px]"
                                                 disabled={saving}
                                             >
-                                                {saving ? "Saving..." : "Save Changes"}
+                                                {saving ? (
+                                                    <span className="flex items-center gap-2">
+                                                        <div className="w-4 h-4 rounded-full border-2 border-black border-t-transparent animate-spin"></div>
+                                                        Saving...
+                                                    </span>
+                                                ) : "Save Changes"}
                                             </Button>
                                         </div>
                                     </form>
