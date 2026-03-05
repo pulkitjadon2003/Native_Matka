@@ -3,6 +3,9 @@ import { isAdmin } from "@/lib/auth";
 import dbConnect from "@/lib/db";
 import AppSetting from "@/models/AppSetting";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const DEFAULT_RATES = [
     { type: "single_digit", name: "Single Digit", rate: "1:10" },
     { type: "jodi_digit", name: "Jodi", rate: "1:90" },

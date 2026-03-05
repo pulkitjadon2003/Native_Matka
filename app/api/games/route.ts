@@ -3,6 +3,7 @@ import dbConnect from '@/lib/db';
 import Game from '@/models/Game';
 import { isMarketOpen } from '@/lib/market';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export async function GET(req: NextRequest) {
