@@ -6,7 +6,7 @@ import GameResult from "@/models/GameResult";
 import Transaction from "@/models/Transaction";
 import User from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
-// import { isAdmin } from "@/lib/auth"; // Uncomment when auth is ready
+import { getISTDateString } from "@/lib/market";
 
 export async function POST(req: NextRequest) {
     try {
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         }
         await game.save();
 
-        const today = new Date().toISOString().split('T')[0];
+        const today = getISTDateString();
 
         let gameResult = await GameResult.findOne({ game_id, date: today });
         if (!gameResult) {

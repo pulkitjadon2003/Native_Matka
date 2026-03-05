@@ -1,10 +1,22 @@
+export function getISTDate() {
+    const defaultDate = new Date();
+    const istString = defaultDate.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+    return new Date(istString);
+}
+
+export function getISTDateString(): string {
+    const istDate = getISTDate();
+    const year = istDate.getFullYear();
+    const month = String(istDate.getMonth() + 1).padStart(2, '0');
+    const day = String(istDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 export function isMarketOpen(openTime: string, closeTime: string, daysOpen: string[] = []): boolean {
     if (!openTime || !closeTime) return false;
 
-    // Check if today is a valid day
-    const now = new Date();
-    // Adjust to IST if needed, but assuming server runs in correct timezone or UTC+5:30 offset handling
-    // For now, use local server time which is set to IST in environment context
+    // Use IST exclusively for all market evaluations
+    const now = getISTDate();
 
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const currentDay = days[now.getDay()];

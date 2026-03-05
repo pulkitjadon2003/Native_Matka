@@ -4,6 +4,7 @@ import Bid from '@/models/Bid';
 import User from '@/models/User';
 import Game from '@/models/Game';
 import Transaction from '@/models/Transaction';
+import { getISTDate } from '@/lib/market';
 import jwt from 'jsonwebtoken';
 
 export async function POST(req: NextRequest) {
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
             return hours * 60 + minutes;
         };
 
-        const now = new Date();
+        const now = getISTDate();
         const currentTime = now.getHours() * 60 + now.getMinutes();
         const openTimeVal = parseTime(game.open_time);
         const closeTimeVal = parseTime(game.close_time);

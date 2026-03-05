@@ -6,6 +6,7 @@ import { Header } from "@/components/admin/Header";
 import { Card } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
+import { getISTDateString } from "@/lib/market";
 
 interface BidDetail {
     user_id: string;
@@ -35,7 +36,7 @@ export default function BettingStatusPage() {
     const { user, loading: authLoading } = useAuth(true);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<MarketStatus[]>([]);
-    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+    const [selectedDate, setSelectedDate] = useState(getISTDateString());
     const [markets, setMarkets] = useState<any[]>([]);
     const [selectedMarket, setSelectedMarket] = useState<string>("all");
     const [expandedGroups, setExpandedGroups] = useState<string[]>([]);

@@ -4,6 +4,7 @@ import User from "@/models/User";
 import Bid from "@/models/Bid";
 import Game from "@/models/Game";
 import { verifyToken } from "@/lib/auth";
+import { getISTDate } from "@/lib/market";
 import mongoose from "mongoose";
 
 export async function POST(req: NextRequest) {
@@ -50,7 +51,7 @@ export async function POST(req: NextRequest) {
             return hours * 60 + minutes;
         };
 
-        const now = new Date();
+        const now = getISTDate();
         const currentTime = now.getHours() * 60 + now.getMinutes();
         const openTimeVal = parseTime(game.open_time);
         const closeTimeVal = parseTime(game.close_time);

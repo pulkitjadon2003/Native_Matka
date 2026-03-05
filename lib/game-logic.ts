@@ -4,6 +4,7 @@ import AppSetting from "@/models/AppSetting";
 import Transaction from "@/models/Transaction";
 import User from "@/models/User";
 import GameResult from "@/models/GameResult";
+import { getISTDateString } from "@/lib/market";
 
 /**
  * Calculates and processes valid bids for a specific game result.
@@ -17,7 +18,7 @@ export async function processGameResult(gameId: string, result: any, session: 'o
         await dbConnect();
 
         // 0. Update GameResult History for Charts
-        const today = new Date().toISOString().split('T')[0];
+        const today = getISTDateString();
         let gameResult = await GameResult.findOne({ game_id: gameId, date: today });
         if (!gameResult) {
             gameResult = new GameResult({

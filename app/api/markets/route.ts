@@ -3,7 +3,7 @@ import dbConnect from "@/lib/db";
 import Game from "@/models/Game";
 import GameResult from "@/models/GameResult";
 import { isAdmin } from "@/lib/auth";
-import { isMarketOpen } from "@/lib/market";
+import { isMarketOpen, getISTDateString } from "@/lib/market";
 
 export async function GET(req: NextRequest) {
     try {
@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
         const games = await Game.find({}).sort({ createdAt: -1 }).lean();
 
         // Fetch today's actual results
-        const today = new Date().toISOString().split('T')[0];
+        const today = getISTDateString();
         const todayResults = await GameResult.find({ date: today }).lean();
 
         const enhancedGames = games.map((game: any) => {

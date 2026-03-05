@@ -4,6 +4,7 @@ import Bid from "@/models/Bid";
 import AppSetting from "@/models/AppSetting";
 import User from "@/models/User";
 import Game from "@/models/Game";
+import { getISTDateString } from "@/lib/market";
 
 export async function POST(req: Request) {
     try {
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
         const sessionToProcess = isCloseSession ? 'close' : 'open';
 
         // 2. Fetch Pending Bids for this Game (TODAY ONLY)
-        const today = new Date().toISOString().split('T')[0];
+        const today = getISTDateString();
         const bids = await Bid.find({
             game_id: game_id,
             status: 'pending',

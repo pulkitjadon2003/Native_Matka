@@ -3,6 +3,7 @@ import dbConnect from "@/lib/db";
 import Bid from "@/models/Bid";
 import Game from "@/models/Game";
 import { isAdmin } from "@/lib/auth";
+import { getISTDateString } from "@/lib/market";
 
 export async function GET(req: NextRequest) {
     try {
@@ -15,7 +16,7 @@ export async function GET(req: NextRequest) {
         }
 
         const { searchParams } = new URL(req.url);
-        const date = searchParams.get("date") || new Date().toISOString().split('T')[0];
+        const date = searchParams.get("date") || getISTDateString();
         const gameId = searchParams.get("game_id");
 
         const query: any = { date };
