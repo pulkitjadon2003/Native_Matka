@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
         const games = await Game.find({ is_active: true }).sort({ open_time: 1 });
 
         const updatedGames = games.map(game => {
-            const isOpen = isMarketOpen(game.open_time, game.close_time, game.days_open);
+            const isOpen = isMarketOpen(game.start_time, game.close_time, game.days_open);
             return {
                 ...game.toObject(),
                 is_market_open: isOpen // Add dynamic status based on IST

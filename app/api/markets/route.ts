@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
         const todayResults = await GameResult.find({ date: today }).lean();
 
         const enhancedGames = games.map((game: any) => {
-            const isOpen = isMarketOpen(game.open_time, game.close_time, game.days_open);
+            const isOpen = isMarketOpen(game.start_time, game.close_time, game.days_open);
 
             // Daily Reset Logic: Overlay today's result, otherwise reset to empty indicators for a fresh day
             const gameTodayResult = todayResults.find(tr => tr.game_id.toString() === game._id.toString());

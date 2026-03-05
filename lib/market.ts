@@ -12,8 +12,8 @@ export function getISTDateString(): string {
     return `${year}-${month}-${day}`;
 }
 
-export function isMarketOpen(openTime: string, closeTime: string, daysOpen: string[] = []): boolean {
-    if (!openTime || !closeTime) return false;
+export function isMarketOpen(startTime: string | undefined | null, closeTime: string, daysOpen: string[] = []): boolean {
+    if (!closeTime) return false;
 
     // Use IST exclusively for all market evaluations
     const now = getISTDate();
@@ -36,15 +36,15 @@ export function isMarketOpen(openTime: string, closeTime: string, daysOpen: stri
             return hours * 60 + minutes;
         };
 
-        const start = parseTime(openTime);
-        const end = parseTime(closeTime);
+        const start = startTime ? parseTime(startTime) : 0;
+        const close = parseTime(closeTime);
 
-        if (start < end) {
-            // Normal day (e.g. 10 AM to 5 PM)
-            return currentTime >= start && currentTime <= end;
+        if (start < close) {
+            // Normal day (e.g. 10 AM to 5 PM, or midnight to 5 PM)
+            return currentTime >= start && currentTime <= close;
         } else {
             // Overnight (e.g. 10 PM to 2 AM)
-            return currentTime >= start || currentTime <= end;
+            return currentTime >= start || currentTime <= close;
         }
     } catch (e) {
         console.error("Error parsing market time", e);
