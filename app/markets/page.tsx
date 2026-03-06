@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Sidebar } from "@/components/admin/Sidebar";
 import { Header } from "@/components/admin/Header";
 import { Button } from "@/components/ui/button";
@@ -38,7 +39,12 @@ export default function MarketSettings() {
 
     const fetchMarkets = async () => {
         try {
-            const res = await fetch("/api/markets");
+            const token = localStorage.getItem("token");
+            const res = await fetch("/api/admin/markets", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             const data = await res.json();
             if (data.success) {
                 setMarkets(data.data);
@@ -163,7 +169,7 @@ export default function MarketSettings() {
                                 </div>
 
                                 <TabsContent value="main" className="mt-0 outline-none">
-                                    <div className="rounded-2xl border border-border-dark bg-surface-dark overflow-hidden shadow-xl">
+                                    <div className="rounded-2xl border border-border-dark bg-surface-dark overflow-x-auto scrollbar-hide shadow-xl">
                                         <Table>
                                             <TableHeader className="bg-background-dark/80 backdrop-blur-sm border-b border-white/5">
                                                 <TableRow className="hover:bg-transparent border-none">
@@ -246,6 +252,16 @@ export default function MarketSettings() {
                                                                     >
                                                                         <span className="material-symbols-outlined text-[20px]">edit</span>
                                                                     </Button>
+                                                                    <Link href={`/markets/${market._id}`}>
+                                                                        <Button
+                                                                            variant="ghost"
+                                                                            size="icon"
+                                                                            className="h-10 w-10 rounded-lg text-text-secondary hover:text-white hover:bg-white/10"
+                                                                            title="View History"
+                                                                        >
+                                                                            <span className="material-symbols-outlined text-[20px]">history</span>
+                                                                        </Button>
+                                                                    </Link>
                                                                     <Button
                                                                         variant="ghost"
                                                                         size="icon"
@@ -265,7 +281,7 @@ export default function MarketSettings() {
                                 </TabsContent>
 
                                 <TabsContent value="starline" className="mt-0 outline-none">
-                                    <div className="rounded-2xl border border-border-dark bg-surface-dark overflow-hidden shadow-xl">
+                                    <div className="rounded-2xl border border-border-dark bg-surface-dark overflow-x-auto scrollbar-hide shadow-xl">
                                         <Table>
                                             <TableHeader className="bg-background-dark/80 backdrop-blur-sm border-b border-white/5">
                                                 <TableRow className="hover:bg-transparent border-none">
@@ -335,6 +351,16 @@ export default function MarketSettings() {
                                                                     >
                                                                         <span className="material-symbols-outlined text-[20px]">edit</span>
                                                                     </Button>
+                                                                    <Link href={`/markets/${market._id}`}>
+                                                                        <Button
+                                                                            variant="ghost"
+                                                                            size="icon"
+                                                                            className="h-10 w-10 rounded-lg text-text-secondary hover:text-white hover:bg-white/10"
+                                                                            title="View History"
+                                                                        >
+                                                                            <span className="material-symbols-outlined text-[20px]">history</span>
+                                                                        </Button>
+                                                                    </Link>
                                                                     <Button
                                                                         variant="ghost"
                                                                         size="icon"
@@ -354,7 +380,7 @@ export default function MarketSettings() {
                                 </TabsContent>
 
                                 <TabsContent value="gali" className="mt-0 outline-none">
-                                    <div className="rounded-2xl border border-border-dark bg-surface-dark overflow-hidden shadow-xl">
+                                    <div className="rounded-2xl border border-border-dark bg-surface-dark overflow-x-auto scrollbar-hide shadow-xl">
                                         <Table>
                                             <TableHeader className="bg-background-dark/80 backdrop-blur-sm border-b border-white/5">
                                                 <TableRow className="hover:bg-transparent border-none">
@@ -424,6 +450,16 @@ export default function MarketSettings() {
                                                                     >
                                                                         <span className="material-symbols-outlined text-[20px]">edit</span>
                                                                     </Button>
+                                                                    <Link href={`/markets/${market._id}`}>
+                                                                        <Button
+                                                                            variant="ghost"
+                                                                            size="icon"
+                                                                            className="h-10 w-10 rounded-lg text-text-secondary hover:text-white hover:bg-white/10"
+                                                                            title="View History"
+                                                                        >
+                                                                            <span className="material-symbols-outlined text-[20px]">history</span>
+                                                                        </Button>
+                                                                    </Link>
                                                                     <Button
                                                                         variant="ghost"
                                                                         size="icon"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Sidebar } from "@/components/admin/Sidebar";
 import { Header } from "@/components/admin/Header";
 import { Button } from "@/components/ui/button";
@@ -151,7 +152,7 @@ export default function UsersPage() {
                             </div>
                         </div>
 
-                        <div className="rounded-2xl border border-border-dark bg-surface-dark overflow-hidden shadow-xl">
+                        <div className="rounded-2xl border border-border-dark bg-surface-dark overflow-x-auto scrollbar-hide shadow-xl">
                             <Table>
                                 <TableHeader className="bg-background-dark/80 backdrop-blur-sm border-b border-white/5">
                                     <TableRow className="hover:bg-transparent border-none">
@@ -250,12 +251,11 @@ export default function UsersPage() {
                                                         >
                                                             <span className="material-symbols-outlined text-[20px]">account_balance_wallet</span>
                                                         </Button>
-                                                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-lg text-primary hover:text-primary hover:bg-primary/10" title="Edit User">
-                                                            <span className="material-symbols-outlined text-[20px]">edit</span>
-                                                        </Button>
-                                                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-lg text-text-secondary hover:text-white hover:bg-white/10" title="View History">
-                                                            <span className="material-symbols-outlined text-[20px]">history</span>
-                                                        </Button>
+                                                        <Link href={`/users/${user._id}`}>
+                                                            <Button variant="ghost" size="icon" className="h-10 w-10 rounded-lg text-text-secondary hover:text-white hover:bg-white/10" title="View History">
+                                                                <span className="material-symbols-outlined text-[20px]">history</span>
+                                                            </Button>
+                                                        </Link>
                                                     </div>
                                                 </TableCell>
                                             </TableRow>

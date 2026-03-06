@@ -26,6 +26,13 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        if (!user.is_active) {
+            return NextResponse.json(
+                { success: false, message: "Your account has been blocked by the admin. Please contact support." },
+                { status: 403 }
+            );
+        }
+
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return NextResponse.json(

@@ -3,6 +3,7 @@ import dbConnect from "@/lib/db";
 import Game from "@/models/Game";
 import { isAdmin } from "@/lib/auth";
 import { processGameResult } from "@/lib/game-logic";
+import { isTimePassed } from "@/lib/market";
 
 export async function PATCH(req: NextRequest, props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
@@ -29,17 +30,28 @@ export async function PATCH(req: NextRequest, props: { params: Promise<{ id: str
             console.log("Processing Market Update for:", id, body.result);
             const { open_panna, open_digit, close_panna, close_digit } = body.result;
 
+            const isOpenDeclared = open_digit !== '*' || open_panna !== '***';
+            const isCloseDeclared = close_digit !== '*' || close_panna !== '***';
+
+            // Validate time limits
+            if (isOpenDeclared && !isTimePassed(game.open_time)) {
+                return NextResponse.json({ success: false, message: `Cannot declare Open Result before Open Time (${game.open_time}) has passed.` }, { status: 400 });
+            }
+
+            if (isCloseDeclared && game.type === 'main' && !isTimePassed(game.close_time)) {
+                return NextResponse.json({ success: false, message: `Cannot declare Close Result before Close Time (${game.close_time}) has passed.` }, { status: 400 });
+            }
+
             // Check if Open Result was declared (simple check: open digit/panna is not default)
             // Ideally we should track what specifically changed, but for now checking existence
             // Process Open Session Bids (Single, Panna)
-            if (open_digit !== '*' || open_panna !== '***') {
+            if (isOpenDeclared) {
                 console.log("Triggering processGameResult for OPEN session");
                 await processGameResult(id, body.result, 'open');
             }
 
             // Process Close Session Bids (Single, Panna) & Jodi (which needs both)
-            // We pass 'close' session, but inside logic we handle Jodi
-            if (close_digit !== '*' || close_panna !== '***') {
+            if (isCloseDeclared) {
                 await processGameResult(id, body.result, 'close');
                 // Also re-run open session to check for Jodi if it wasn't caught? 
                 // Actually `processGameResult` finds bids by session. 

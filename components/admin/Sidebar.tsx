@@ -5,13 +5,15 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 
-const menuItems = [
+export const menuItems = [
     { icon: "dashboard", label: "Dashboard", href: "/" },
     { icon: "analytics", label: "Betting Status", href: "/bids/status" },
     { icon: "storefront", label: "Market Settings", href: "/markets" },
     { icon: "group", label: "User Management", href: "/users" },
     { icon: "inventory_2", label: "Pending Deposits", href: "/deposits" },
     { icon: "account_balance", label: "Pending Withdrawals", href: "/withdrawals" },
+    { icon: "history", label: "Transaction History", href: "/transactions" },
+    { icon: "dynamic_feed", label: "Live Activity", href: "/activity" },
     { icon: "description", label: "Reports", href: "/reports" },
     { icon: "settings", label: "App Settings", href: "/settings/app" },
     { icon: "currency_rupee", label: "Game Rates", href: "/settings/rates" },

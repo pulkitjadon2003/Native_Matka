@@ -147,6 +147,9 @@ export function DeclareResultModal({ isOpen, onClose, onSuccess, market }: Decla
     };
 
     const getResultDisplay = () => {
+        if (market?.type !== 'main' && market?.type) {
+            return `${openPanna || '***'}-${openDigit || '*'}`;
+        }
         return `${openPanna || '***'}-${openDigit || '*'}${closeDigit || '*'}-${closePanna || '***'}`;
     };
 
@@ -217,27 +220,31 @@ export function DeclareResultModal({ isOpen, onClose, onSuccess, market }: Decla
                                 readOnly={openPanna.length === 3}
                             />
                         </div>
-                        <div className="space-y-1.5">
-                            <Label className="text-text-secondary text-[10px] uppercase tracking-wider font-bold">Close Panna</Label>
-                            <Input
-                                placeholder="***"
-                                value={closePanna}
-                                onChange={(e) => setClosePanna(e.target.value.replace(/[^0-9]/g, ''))}
-                                className="bg-background-dark border-border-dark focus:border-primary text-center font-mono text-lg h-10"
-                                maxLength={3}
-                            />
-                        </div>
-                        <div className="space-y-1.5">
-                            <Label className="text-text-secondary text-[10px] uppercase tracking-wider font-bold">Close Digit</Label>
-                            <Input
-                                placeholder="*"
-                                value={closeDigit}
-                                onChange={(e) => setCloseDigit(e.target.value.replace(/[^0-9]/g, ''))}
-                                className="bg-background-dark border-border-dark focus:border-primary text-center font-black text-xl h-10"
-                                maxLength={1}
-                                readOnly={closePanna.length === 3}
-                            />
-                        </div>
+                        {(!market?.type || market?.type === 'main') && (
+                            <>
+                                <div className="space-y-1.5">
+                                    <Label className="text-text-secondary text-[10px] uppercase tracking-wider font-bold">Close Panna</Label>
+                                    <Input
+                                        placeholder="***"
+                                        value={closePanna}
+                                        onChange={(e) => setClosePanna(e.target.value.replace(/[^0-9]/g, ''))}
+                                        className="bg-background-dark border-border-dark focus:border-primary text-center font-mono text-lg h-10"
+                                        maxLength={3}
+                                    />
+                                </div>
+                                <div className="space-y-1.5">
+                                    <Label className="text-text-secondary text-[10px] uppercase tracking-wider font-bold">Close Digit</Label>
+                                    <Input
+                                        placeholder="*"
+                                        value={closeDigit}
+                                        onChange={(e) => setCloseDigit(e.target.value.replace(/[^0-9]/g, ''))}
+                                        className="bg-background-dark border-border-dark focus:border-primary text-center font-black text-xl h-10"
+                                        maxLength={1}
+                                        readOnly={closePanna.length === 3}
+                                    />
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     {/* Live result string */}
