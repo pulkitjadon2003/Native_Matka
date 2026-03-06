@@ -188,11 +188,13 @@ export function AddMarketModal({ isOpen, onClose, onSuccess, initialData }: AddM
                             value={openTime}
                             onChange={setOpenTime}
                         />
-                        <TimePicker
-                            label="Close Time"
-                            value={closeTime}
-                            onChange={setCloseTime}
-                        />
+                        {type === "main" && (
+                            <TimePicker
+                                label="Close Time"
+                                value={closeTime}
+                                onChange={setCloseTime}
+                            />
+                        )}
                     </div>
 
                     <div className="space-y-2">

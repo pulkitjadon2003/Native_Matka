@@ -51,3 +51,33 @@ export function isMarketOpen(startTime: string | undefined | null, closeTime: st
         return false;
     }
 }
+
+export function isTimePassed(timeStr: string): boolean {
+    if (!timeStr) return false;
+    try {
+        const now = getISTDate();
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+        const parseTime = (tStr: string) => {
+            const [time, period] = tStr.trim().split(' ');
+            let [hours, minutes] = (time || "").split(':').map(Number);
+            if (period === 'PM' && hours !== 12) hours += 12;
+            if (period === 'AM' && hours === 12) hours = 0;
+            return hours * 60 + (minutes || 0);
+        };
+
+        const targetMinutes = parseTime(timeStr);
+
+        // Shift the day start to 5:00 AM (300 minutes) to handle overnight markets seamlessly
+        // A "Matka Day" runs from 5:00 AM today to 4:59 AM tomorrow.
+        const DAY_START = 300;
+        const shiftTime = (t: number) => (t - DAY_START + 1440) % 1440;
+
+        const shiftedCurrent = shiftTime(currentMinutes);
+        const shiftedTarget = shiftTime(targetMinutes);
+
+        return shiftedCurrent >= shiftedTarget;
+    } catch (e) {
+        return false;
+    }
+}

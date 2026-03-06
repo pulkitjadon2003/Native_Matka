@@ -3,7 +3,7 @@ import dbConnect from "@/lib/db";
 import Game from "@/models/Game";
 import GameResult from "@/models/GameResult";
 import { isAdmin } from "@/lib/auth";
-import { isMarketOpen, getISTDateString } from "@/lib/market";
+import { isMarketOpen, getISTDateString, isTimePassed } from "@/lib/market";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -32,11 +32,14 @@ export async function GET(req: NextRequest) {
             };
 
             if (gameTodayResult) {
+                const openPassed = isTimePassed(game.open_time);
+                const closePassed = isTimePassed(game.close_time);
+
                 currentResult = {
-                    open_panna: gameTodayResult.open_panna || '***',
-                    open_digit: gameTodayResult.open_digit || '*',
-                    close_panna: gameTodayResult.close_panna || '***',
-                    close_digit: gameTodayResult.close_digit || '*'
+                    open_panna: openPassed ? (gameTodayResult.open_panna || '***') : '***',
+                    open_digit: openPassed ? (gameTodayResult.open_digit || '*') : '*',
+                    close_panna: closePassed ? (gameTodayResult.close_panna || '***') : '***',
+                    close_digit: closePassed ? (gameTodayResult.close_digit || '*') : '*'
                 };
             }
 

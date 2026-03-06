@@ -4,7 +4,7 @@ import Bid from '@/models/Bid';
 import User from '@/models/User';
 import Game from '@/models/Game';
 import Transaction from '@/models/Transaction';
-import { getISTDate } from '@/lib/market';
+import { getISTDate, getISTDateString } from '@/lib/market';
 import jwt from 'jsonwebtoken';
 
 export async function POST(req: NextRequest) {
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
             digit,
             points,
             session,
-            date: new Date().toISOString().split('T')[0],
+            date: getISTDateString(),
             status: 'pending'
         });
 
